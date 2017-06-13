@@ -1,0 +1,119 @@
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	*, *::before, *::after {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	body, html {
+		height: 100vh;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.fullpage-wrapper {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		background: linear-gradient(#2b2b2b, #000);
+	}
+
+	.fullpage-wrapper .fullpage-pages {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+</style>
+
+
+<div class="fullpage-wrapper">
+	<div class="fullpage-pages" style="background: #2b2b2b"></div>
+	<div class="fullpage-pages" style="background: orange"></div>
+	<div class="fullpage-pages" style="background: navy"></div>
+</div>
+
+<script>
+	function fullpage(ele) {
+		var fullpage = ele, pages = [].slice.call(fullpage.querySelectorAll('.fullpage-pages')), at = 0, startY, dY, len = pages.length, h = document.documentElement.clientHeight;
+		if (len === 0) return;
+
+		function getNextIndex(num) {
+			return num + 1 >= len ? NaN : num + 1;
+		}
+		function getPrevIndex(num) {
+			return num - 1 < 0 ? NaN : num - 1;
+		}
+		pages.forEach(function(item) { item.style.display = 'none' });
+		pages[at].style.display = 'block';
+
+		function start(e) {
+			e.preventDefault();
+			startY = e.touches[0].clientY;
+		}
+
+		function touching(e) {
+			e.preventDefault();
+			dY = e.touches[0].clientY - startY;
+
+			if (dY < 0 && !isNaN(getNextIndex(at))) {
+				dY = Math.abs(dY) > h ? -h : dY;
+				pages.forEach(function(item) { item.style.display = 'none'; item.style.transition = ''; item.style.transform = ''; item.style.zIndex = 1; });
+				pages[at].style.display = 'block';
+				pages[getNextIndex(at)].style.display = 'block';
+				pages[getNextIndex(at)].style.zIndex = 2;
+				pages[getNextIndex(at)].style.transform = 'translateY(' + h + 'px)';
+				pages[at].style.transform = 'scale(' + (1 + dY / h) + ') translateY(' + dY + 'px)';
+				pages[getNextIndex(at)].style.transform = 'translateY(' + (h + dY) + 'px)';
+			}
+			if (dY > 0 && !isNaN(getPrevIndex(at))) {
+				dY = Math.abs(dY) > h ? h : dY;
+				pages.forEach(function(item) { item.style.display = 'none'; item.style.transition = ''; item.style.transform = ''; item.style.zIndex = 1; });
+				pages[at].style.display = 'block';
+				pages[getPrevIndex(at)].style.display = 'block';
+				pages[getPrevIndex(at)].style.zIndex = 2;
+				pages[getPrevIndex(at)].style.transform = 'translateY(' + -h + 'px)';
+				pages[at].style.transform = 'scale(' + (1 - dY / h) + ') translateY(' + dY + 'px)';
+				pages[getPrevIndex(at)].style.transform = 'translateY(' + (-h + dY) + 'px)';
+			}
+		}
+
+		function end(e) {
+			if (dY < 0 && !isNaN(getNextIndex(at))) {
+				pages[at].style.transition = 'all 0.5s ease 0s';
+				pages[getNextIndex(at)].style.transition = 'all 0.5s ease 0s';
+				if (Math.abs(dY) >= h / 4) {
+					pages[at].style.transform = 'scale(0) translateY(' + -h + 'px)';
+					pages[getNextIndex(at)].style.transform = 'translateY(' + 0 + 'px)';
+					at++;
+				} else {
+					pages[at].style.transform = '';
+					pages[getNextIndex(at)].style.transform = 'translateY(' + h + 'px)';
+				}
+			}
+			if (dY > 0 && !isNaN(getPrevIndex(at))) {
+				pages[at].style.transition = 'all 0.5s ease 0s';
+				pages[getPrevIndex(at)].style.transition = 'all 0.5s ease 0s';
+				if (Math.abs(dY) >= h / 4) {
+					pages[at].style.transform = 'scale(0) translateY(' + h + 'px)';
+					pages[getPrevIndex(at)].style.transform = 'translateY(' + 0 + 'px)'
+					at--;
+				} else {
+					pages[at].style.transform = '';
+					pages[getPrevIndex(at)].style.transform = 'translateY(' + -h + 'px)';
+				}
+			}
+		}
+		ele.addEventListener('touchstart', start);
+		ele.addEventListener('touchmove', touching);
+		ele.addEventListener('touchend', end);
+
+	}
+
+	fullpage(document.querySelector('.fullpage-wrapper'));
+</script>

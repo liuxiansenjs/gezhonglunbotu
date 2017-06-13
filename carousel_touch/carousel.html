@@ -1,0 +1,188 @@
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<style>
+  *, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .carousel {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+  }
+
+  .carousel .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel > a {
+    position: absolute;
+    display: block;
+    width: 50%;
+    height: 100%;
+    top: 0;
+  }
+
+  .carousel .prev {
+    left: 0;
+  }
+
+  .carousel .next {
+    right: 0;
+  }
+
+  .carousel .carousel-item a {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-left: 100%;
+  }
+
+  .carousel .carousel-item img {
+    display: block;
+    position: absolute;
+    height: 100%;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+
+  }
+
+</style>
+
+<div class="carousel" style="position: absolute; left: 50%; transform: translateX(-50%); top: 40px">
+  <div class="carousel-item" style="background: navy;"><a href="javascript:;"><img src="img/img1.jpeg" alt=""></a></div>
+  <div class="carousel-item" style="background: orange;"><a href="javascript:;"><img src="img/img2.jpeg" alt=""></a></div>
+  <div class="carousel-item" style="background: #2b2b2b;"></div>
+  <!-- <a href="javascript:;" class="prev"></span>
+  <a href="javascript:;" class="next"></span> -->
+</div>
+
+<script>
+  function bussy(ele) {
+    var at = 0, c = ele, c_items = c.querySelectorAll('.carousel-item'), len = c_items.length, btn_p = c.querySelector('.prev'), btn_n = c.querySelector('.next'), w = c.offsetWidth, v = 10;
+    if (c_items.length === 0) return;
+    c_items = [].slice.call(c_items);
+    c_items.forEach(function(item, index) { index === 0 ? false : item.style.display = 'none'; });
+
+    var start_x, inst_x, dx;
+
+
+
+    function init_reset_style() {
+      c_items[at].style.display = 'block';
+      c_items[at - 1 < 0 ? len - 1 : at - 1].style.display = 'block';
+      c_items[at + 1 >= len ? 0 : at + 1].style.display = 'block';
+      c_items[at].style.left = '0px';
+      c_items[at - 1 < 0 ? len - 1 : at - 1].style.left = - w + 'px';
+      c_items[at + 1 >= len ? 0 : at + 1].style.left = w + 'px';
+    }
+
+    function start(e) {
+      start_x = e.touches[0].clientX;
+      init_reset_style();
+      return false;
+    }
+
+    function touching(e) {
+      inst_x = e.touches[0].clientX;
+      dx = Math.abs(inst_x - start_x) >= w ? w : inst_x - start_x;
+      c_items[at].style.left = dx + 'px';
+      c_items[at - 1 < 0 ? len - 1 : at - 1].style.left = - w + dx + 'px';
+      c_items[at + 1 >= len ? 0 : at + 1].style.left = w + dx + 'px';
+    }
+
+    function update_at() {
+      if (Math.abs(dx) < w / 4) return;
+      dx > 0 ? at = at - 1 < 0 ? len - 1 : at - 1 : at = at + 1 >= len ? 0 : at + 1;
+    }
+
+    function animation_process() {
+      var b_at = parseFloat(c_items[at].style.left, 10), b_key, diff_at, diff_key, t, count = 0;
+      if (Math.abs(dx) < w / 4) {
+        if (dx  > 0) {
+          b_key = parseFloat(c_items[at - 1 < 0 ? len - 1 : at - 1].style.left, 10);
+          diff_at = 0 - b_at;
+          diff_key = -w - b_key;
+          t = setInterval(function() {
+            count++;
+            b_at += diff_at / v;
+            b_key += diff_key / v;
+            c_items[at].style.left = parseInt(b_at, 10) + 'px';
+            c_items[at - 1 < 0 ? len - 1 : at - 1].style.left = parseInt(b_key, 10) + 'px';
+            if (count > v) clearInterval(t);
+          }, v);
+          return;
+        }
+        if (dx < 0) {
+          b_key = parseFloat(c_items[at + 1 >= len ? 0 : at + 1].style.left, 10);
+          diff_at = 0 - b_at;
+          diff_key = w - b_key;
+          t = setInterval(function() {
+            count++;
+            b_at += diff_at / v;
+            b_key += diff_key / v;
+            c_items[at].style.left = parseInt(b_at, 10) + 'px';
+            c_items[at + 1 >= len ? 0 : at + 1].style.left = parseInt(b_key, 10) + 'px';
+            if (count > v) clearInterval(t);
+          }, v);
+          return;
+        }
+      } else {
+        if (dx > 0) {
+          b_key = parseFloat(c_items[at - 1 < 0 ? len - 1 : at - 1].style.left, 10);
+          diff_at = w - b_at;
+          diff_key = 0 - b_key;
+          t = setInterval(function() {
+            count++;
+            b_at += diff_at / v;
+            b_key += diff_key / v;
+            c_items[at].style.left = parseInt(b_at, 10) + 'px';
+            c_items[at - 1 < 0 ? len - 1 : at - 1].style.left = parseInt(b_key, 10) + 'px';
+            if (count > v) {
+              clearInterval(t);
+              update_at();
+              init_reset_style();
+            }
+          }, v);
+          return;
+        }
+        if (dx < 0) {
+          b_key = parseFloat(c_items[at + 1 >= len ? 0 : at + 1].style.left, 10);
+          diff_at = -w - b_at;
+          diff_key = 0 - b_key;
+          t = setInterval(function() {
+            count++;
+            b_at += diff_at / v;
+            b_key += diff_key / v;
+            c_items[at].style.left = parseInt(b_at, 10) + 'px';
+            c_items[at + 1 >= len ? 0 : at + 1].style.left = parseInt(b_key, 10) + 'px';
+            if (count > v) {
+              clearInterval(t);
+              update_at();
+              init_reset_style();
+            }
+          }, v);
+          return;
+        }
+      }
+    }
+
+    c.addEventListener('touchstart', start);
+    c.addEventListener('touchmove', touching);
+    c.addEventListener('touchend', function(e) {
+      animation_process();
+    });
+
+
+  }
+
+
+  bussy(document.querySelector('.carousel'));
+</script>

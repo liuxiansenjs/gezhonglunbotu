@@ -1,0 +1,32 @@
+<body style="background: linear-gradient(blue, darkblue)">
+  <div id="star-1" style="position: absolute; left: 0; top: 0; width: 10px; height: 10px; background: skyblue; border-radius: 50%;"></div>
+  <div id="star-2" style="position: absolute; left: 0; top: 0; width: 20px; height: 20px; background: yellow; border-radius: 50%;"></div>
+  <div id="star-3" style="position: absolute; left: 0; top: 0; width: 5px; height: 5px; background: #2b2b2b; border-radius: 50%;"></div>
+</body>
+
+<script>
+  function bussy(ele, a, b, r, start, v) {
+    var deg = start ? start : 0,
+      timecount = null;
+    timecount = setInterval(function() {
+      ele.style.left = circye_track(a, b, r, deg_to_radian(deg)).x + 'px';
+      ele.style.top = circye_track(a, b, r, deg_to_radian(deg)).y + 'px';
+      ++deg;
+    }, v ? v : 10);
+  }
+
+  function circye_track(px, py, r, deg) {
+    return {
+      x: px + Math.cos(deg) * r,
+      y: py + Math.sin(deg) * r,
+    }
+  }
+
+  function deg_to_radian(deg) {
+    return deg * Math.PI / 360;
+  }
+
+  bussy(document.querySelector('#star-1'), 200, 200, 100, 2, 5);
+  bussy(document.querySelector('#star-2'), 200, 200, 40, 20);
+  bussy(document.querySelector('#star-3'), 200, 300, 60, 10, 2);
+</script>

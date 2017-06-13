@@ -1,0 +1,59 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0">
+<style media="screen">
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .box-1 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    top: 40px;
+    left: calc(50% - 50px);
+  }
+
+  .box-1::after {
+    content: "ES";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-family: 'helvetica', 'sans-serif';
+    font-size: 48px;
+    line-height: 48px;
+    font-weight: bold;
+  }
+</style>
+<div class="box-1"></div>
+
+<script type="text/javascript">
+// (function() {
+  class Dragon {
+    constructor(ele) {
+      this[0] = ele;
+      this[0].addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        var initXY = this.calc_init_diff(e.touches[0].clientX, e.touches[0].clientY);
+        this[0].addEventListener('touchmove', (e) => {
+          e.preventDefault();
+          this.action(e.touches[0].clientX, e.touches[0].clientY, initXY.x, initXY.y);
+        });
+      });
+    }
+
+    calc_init_diff(ex, ey) {
+      return {
+        x: ex - this[0].getBoundingClientRect().left,
+        y: ey - this[0].getBoundingClientRect().top,
+      }
+    }
+    action(x, y, initx, inity) {
+      this[0].style.left = x - initx >= 0 ? x - initx + 'px' : '0px';
+      this[0].style.top = y - inity >= 0 ? y - inity + 'px' : '0px';
+    }
+  }
+  var a_inst = new Dragon(document.querySelector('.box-1'));
+// }());
+</script>

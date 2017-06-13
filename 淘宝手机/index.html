@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>剁手网</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <style media="screen">
+    *,
+    *::before,
+    *::after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f4f4;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+
+    input,
+    img {
+      vertical-align: center;
+    }
+
+    img {
+      border: 0;
+    }
+
+    a {
+      color: #2b2b2b;
+      text-decoration: none;
+    }
+
+    .h-n {
+      position: fixed;
+      width: 100%;
+      height: 44px;
+      background: #FF8100;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .h-n .m {
+      min-width: 320px;
+      height: 32px;
+      margin: 6px 0px 0px 10px;
+    }
+
+    .h-n .m .logo {
+      height: 32px;
+      width: 35px;
+      float: left;
+      margin: 0;
+    }
+
+    .h-n .m .logo a {
+      position: relative;
+      display: block;
+      width: 35px;
+      height: 32px;
+    }
+
+    .h-n .m .logo a img {
+      height: 25px;
+      width: 35px;
+    }
+
+    .h-n .m .toolbar {
+      float: right;
+      height: 100%;
+      padding: 0 4px;
+      margin-top: -2.5px;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    .h-n .m .toolbar a {
+      display: inline-block;
+      min-width: 20px;
+      text-align: center;
+      margin: 0 4px;
+    }
+
+    .h-n .m .toolbar a img {
+      display: block;
+      margin: 0 auto;
+      height: 20px;
+      max-width: 20px;
+      vertical-align: middle;
+    }
+
+    .h-n .m .toolbar a span {
+      font-size: 12px;
+      color: #fff;
+      font-weight: 100;
+    }
+
+    .h-n .m .search-bar {
+      margin-left: 46px;
+      overflow: hidden;
+    }
+
+    .h-n .m .search-bar form input {
+      width: 100%;
+      height: 32px;
+      padding: 5px 20px 5px 30px;
+      color: #fff;
+      font-size: 14px;
+      background: url('imgs/search.png') no-repeat rgba(255, 255, 255, 0.2);
+      background-position: 8px center;
+      background-size: 18px;
+      border-radius: 100px;
+      outline: 0;
+      border: none;
+    }
+
+
+    .page-content {
+      min-width: 320px;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .banner {
+      position: relative;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="h-n">
+    <div class="m">
+      <h1 class="logo">
+          <a href="javascript:;">
+            <img src="imgs/tao.png" alt="">
+            <span style="display: none;">
+              淘宝网 假货 高仿 仿真枪
+            </span>
+          </a>
+        </h1>
+      <div class="toolbar">
+        <a href="javascript:;">
+            <img src="imgs/region.png" alt="">
+            <span>
+              地区
+            </span>
+          </a>
+        <a href="javascript:;">
+            <img src="imgs/user.png" alt="">
+            <span>
+              我的淘宝
+            </span>
+          </a>
+        <a href="javascript:;">
+            <img src="imgs/cart.png" alt="">
+            <span>
+              购物车
+            </span>
+          </a>
+      </div>
+      <div class="search-bar">
+        <form action="javascript:void(0)">
+          <input type="text" class="search-input" name="q" value="ES6从入门到放弃">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="main-content" style="padding-top: 44px; position: relative">
+      <div class="banner">
+        <ul>
+          <li><img src="imgs/TB10yuVRFXXXXc_XFXXXXXXXXXX-1125-350.jpg" alt=""></li>
+        </ul>
+      </div>
+
+      <style>
+        .navigation {
+          display: flex;
+          flex-wrap: nowrap;
+          flex-direction: row;
+          justify-content: space-around;
+          width: 100%;
+          padding: 10px;
+          background-color: #fff;
+        }
+
+        .navigation a {
+          display: block;
+          -webkit-box-flex: 1;
+          flex: 1 1 0;
+          width: 100%;
+        }
+
+        .navigation a .img-wrapper {
+          padding: 0 17.85%;
+          width: 100%;
+        }
+
+        .navigation a .img-wrapper .place-wrapper {
+          position: relative;
+          padding-bottom: 100%;
+        }
+
+        .navigation a .img-wrapper .place-wrapper img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          max-width: 43px;
+          display: block;
+          margin: auto;
+          height: auto;
+        }
+
+        .navigation a p {
+          margin-top: 4.5px;
+          text-align: center;
+          font-size: 12px;
+          line-height: 1;
+          color: #666;
+        }
+      </style>
+      <div class="navigation">
+        <a href="javascript:;">
+          <div class="img-wrapper">
+            <div class="place-wrapper">
+              <img src="imgs/tmall.webp" alt="">
+            </div>
+          </div>
+          <p>天猫</p>
+        </a>
+        <a href="javascript:;">
+          <div class="img-wrapper">
+            <div class="place-wrapper">
+              <img src="imgs/juhuasuan.webp" alt="">
+            </div>
+          </div>
+          <p>聚划算</p>
+        </a>
+        <a href="javascript:;">
+          <div class="img-wrapper">
+            <div class="place-wrapper">
+              <img src="imgs/bonus.webp" alt="">
+            </div>
+          </div>
+          <p>淘金币</p>
+        </a>
+        <a href="javascript:;">
+          <div class="img-wrapper">
+            <div class="place-wrapper">
+              <img src="imgs/delivery.webp" alt="">
+            </div>
+          </div>
+          <p>物流追踪</p>
+        </a>
+      </div>
+
+
+      <style>
+        .toutiao {
+          width: 100%;
+          padding: 10px;
+          font-size: 13px;
+          color: #333;
+          background: #fff;
+        }
+
+        .toutiao .box {
+          position: relative;
+          padding: 0 10.1% 0 12.9%;
+        }
+
+        .toutiao .box .slogan {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          text-align: center;
+        }
+
+        .toutiao .box .slogan img {
+          width: auto;
+          height: 100%;
+          vertical-align: top;
+        }
+
+        .toutiao .box .flashy {
+          position: relative;
+          height: 32px;
+          padding-left: 10px;
+          overflow: hidden;
+        }
+
+        .toutiao .box .flashy .item a {
+          display: block;
+          height: 34px;
+          color: #333;
+        }
+
+        .toutiao .box .flashy a p {
+          height: 17px;
+          line-height: 17px;
+          font-size: 13px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      </style>
+
+      <div class="toutiao">
+        <div class="box">
+          <p class="slogan">
+            <img src="imgs/news.webp" alt="">
+          </p>
+          <div class="flashy">
+            <div class="item">
+              <a href="javascript:;">
+                <p>iphone9 惊爆跳楼价 深圳华强北，拍下立即发货</p>
+                <p>体虚、无力、身体被掏空，六位地黄丸买一年送一年</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        .category .cate-wrapper {
+          display: flex;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-items: stretch;
+          width: 100%;
+        }
+      </style>
+      <div class="category" style="margin-top: 10px;">
+        <div class="cate-wrapper">
+          <a href="javascript:;" class="item-wrapper">
+            <div class="item-left">
+              <div class="item-title">
+                <h2 class="cate-item-title"></h2>
+                <h3 class="countdown">
+                  <span>页面正在努力加载中</span>
+                  <span></span>
+                  <span></span>
+                </h3>
+              </div>
+              <div class="item-img-wrapper"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
